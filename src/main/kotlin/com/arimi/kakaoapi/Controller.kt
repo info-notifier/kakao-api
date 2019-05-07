@@ -13,7 +13,7 @@ class Controller {
     @GetMapping("/crawl")
     fun page(@RequestParam(value = "url", defaultValue = "http://www.ajou.ac.kr/main/life/food.jsp") url: String): String {
 
-        println(Crawler.FoodCourtOf.student())
+        Crawler.FoodCourt.of("dorm")
         return "hi"
     }
 
