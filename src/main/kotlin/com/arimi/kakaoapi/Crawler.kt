@@ -1,5 +1,6 @@
 package com.arimi.kakaoapi
 
+import org.jsoup.Jsoup
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.chrome.ChromeDriver
@@ -12,10 +13,11 @@ class Crawler {
         private val driver = ChromeDriver(options)
     }
 
+    // Using Selenium
     object FoodCourt {
-        private val ajouTables: List<WebElement>
         private val foodCourtsHtml: HashMap<String, WebElement>
-        private val keyMapper = hashMapOf (
+        private val ajouTables: List<WebElement>
+        private val convKorToEn = hashMapOf (
                 "아침" to "breakfast",
                 "점심" to "lunch",
                 "저녁" to "dinner",
@@ -38,16 +40,15 @@ class Crawler {
             foodCourtsHtml[type]?.findElements(By.tagName("tr"))
                     ?.map {
                         var timeBuf = ""
-                        keyMapper[timeBuf]
                         // tr 자식 중 class attribute가 없는 td -> time (아침, 점심, 저녁)
                         it.findElements(By.cssSelector("td:not([class])")).map {
                             time -> timeBuf = time.text?: ""
-                            if (time.text != "") dormFoodMap[keyMapper[timeBuf]] = ""
+                            if (time.text != "") dormFoodMap[convKorToEn[timeBuf]] = ""
                         }
 
                         // tr 자식 중 class가 no_right left_pd인 td -> menu
                         it.findElements(By.cssSelector("td.no_right.left_pd")).map {
-                            menu -> if (menu.text != "") dormFoodMap[keyMapper[timeBuf]] = menu.text?: ""
+                            menu -> if (menu.text != "") dormFoodMap[convKorToEn[timeBuf]] = menu.text?: ""
                         }
                     }
 
@@ -59,13 +60,21 @@ class Crawler {
         }
     }
 
+    // Using JSoup
     object Vacancy {
-        fun c1(): String? {
-            return ""
-        }
-
-        fun d1(): String? {
-            return ""
+        fun of(type: String): String {
+            val url = "http://u-campus.ajou.ac.kr/ltms/rmstatus/vew.rmstatus?bd_code=JL&rm_code=JL0$type"
+            var textList: List<String>
+            var retText: String
+            Jsoup.connect(url).get().run {
+                textList = select("td[valign=\"middle\"]")[1]
+                        .allElements.eachText()[0].split(" ")
+                        .map { it.trim() }
+                retText = "◆ $type 열람실의 이용 현황\n" +
+                        "  * 남은 자리: ${textList[6]}\n" +
+                        "  * 사용률: ${textList[8].toInt() - textList[6].toInt()} / ${textList[8]} (${textList[12]})"
+            }
+            return retText
         }
     }
 }
