@@ -23,6 +23,7 @@ dependencies {
     
     testImplementation 'io.github.bonigarcia:webdrivermanager:3.4.0'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.8.1'
+    implementation 'org.jsoup:jsoup:1.10.3'
 }
 
 compileKotlin {
