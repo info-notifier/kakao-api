@@ -1,5 +1,6 @@
 package com.arimi.kakaoapi
 
+import com.arimi.kakaoapi.vo.*
 import org.jsoup.Jsoup
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
@@ -8,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions
 import java.sql.Timestamp
 
 // 싱글톤 패턴 적용
-class Crawler {
+class CrawlerLegacy {
     companion object {
         private val options = ChromeOptions().addArguments("headless")
         private val driver = ChromeDriver(options)
