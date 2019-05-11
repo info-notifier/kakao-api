@@ -13,6 +13,7 @@ class MessageServiceImpl @Autowired constructor (
         return when (content) {
             "C1 열람실" -> vacancy.getMessage("C1")
             "D1 열람실" -> vacancy.getMessage("D1")
+            "plug" -> vacancy.getPlugMessage()
             else -> vacancy.getMessage("D1")
         }
     }
