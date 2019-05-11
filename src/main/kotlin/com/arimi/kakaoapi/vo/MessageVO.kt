@@ -2,6 +2,11 @@ package com.arimi.kakaoapi.vo
 
 data class MessageVO (
         val text: String,
-        val photo: PhotoVO,
-        val message_button: MessageButtonVO
-)
+        val messageButton: MessageButtonVO
+) {
+    constructor (
+            text: String,
+            messageButton: MessageButtonVO,
+            photo: PhotoVO
+    ): this(text, messageButton)
+}

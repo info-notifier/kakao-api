@@ -105,7 +105,7 @@ class CrawlerLegacy {
             url?.let {
                 photo = PhotoVO("$url?=${timestamp.time}", 720, 630)
                 msgBtn = MessageButtonVO("상세정보", it)
-                message = MessageVO(text, photo, msgBtn)
+                message = MessageVO(text, msgBtn, photo)
             }
             buttons?.let { keyboard = KeyboardVO("buttons", buttons) }
 
