@@ -1,16 +1,11 @@
 package com.arimi.kakaoapi
 
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit4.SpringRunner
+import org.junit.jupiter.api.Test
 
-@RunWith(SpringRunner::class)
-@SpringBootTest
-class KakaoapiApplicationTests {
 
+class HelloJunit5Test {
     @Test
-    fun contextLoads() {
+    fun `First test`() {
+        print("Hello, JUnit5!")
     }
-
 }
