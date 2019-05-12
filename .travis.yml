@@ -16,4 +16,4 @@ cache:
 script: "./gradlew clean build"
 
 after_success:
-  - ./gradlew jacocoTestReport coveralls
+  - bash <(curl -s https://codecov.io/bash)
