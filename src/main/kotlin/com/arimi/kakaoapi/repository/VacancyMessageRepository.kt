@@ -61,7 +61,6 @@ class VacancyMessageRepository : MessageRepository {
 
         imgUrl?.let {
             photo = PhotoVO(it, 720, 200)
-            // 오버로딩을 안해서 default인 null로 가는데 이것 해결해보기
             message = MessageVO(text, photo)
         }
         buttons?.let { keyboard = KeyboardVO("buttons", buttons) }
