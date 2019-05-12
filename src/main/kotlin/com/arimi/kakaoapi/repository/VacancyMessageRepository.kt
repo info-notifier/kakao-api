@@ -25,8 +25,8 @@ class VacancyMessageRepository : MessageRepository {
 
     override lateinit var message: MessageVO
     override lateinit var keyboard: KeyboardVO
-    override var msgBtn: MessageButtonVO? = null
-    override var photo: PhotoVO? = null
+    override lateinit var msgBtn: MessageButtonVO
+    override lateinit var photo: PhotoVO
 
     override fun getMessage(place: String): ResponseVO {
         val text = Crawler.Vacancy.getTextOf(place)
