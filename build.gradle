@@ -25,6 +25,10 @@ jacocoTestReport {
     }
 }
 
+coveralls {
+    sourceDirs += ['src/main/kotlin']
+}
+
 repositories {
     mavenCentral()
 }
