@@ -6,6 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 data class ResponseVO (
-        private val message: MessageVO,
-        private val keyboard: KeyboardVO
+        val message: MessageVO,
+        val keyboard: KeyboardVO
 )

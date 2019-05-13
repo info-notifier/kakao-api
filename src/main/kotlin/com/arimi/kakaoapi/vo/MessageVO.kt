@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-data class MessageVO (private val text: String) {
-    private lateinit var photo: PhotoVO
-    private lateinit var messageButton: MessageButtonVO
+data class MessageVO (val text: String) {
+    lateinit var photo: PhotoVO
+    lateinit var messageButton: MessageButtonVO
 
     constructor (text: String, photo: PhotoVO): this(text) {
         this.photo = photo
