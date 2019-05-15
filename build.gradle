@@ -11,10 +11,11 @@ group = 'com.arimi'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-jacocoTestReport {
+tasks.jacocoTestReport {
     reports {
         xml.enabled = true // coveralls plugin depends on xml format report
         html.enabled = true
+        html.destination = file("${buildDir}/jacocoHtml")
     }
 }
 
@@ -35,7 +36,7 @@ dependencies {
     testImplementation 'io.github.bonigarcia:webdrivermanager:3.4.0'
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.3.0-RC1"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.3.0-RC1"
-    
+    testImplementation "org.mockito:mockito-junit-jupiter:2.27.0"
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.8.1'
     implementation 'org.jsoup:jsoup:1.10.3'
 }
