@@ -19,7 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(SpringExtension::class)
 @SpringBootTest
-class MessageServiceImplTest {
+class MessageServiceImplTests {
     @Mock
     lateinit var repo: VacancyMessageRepository
 
