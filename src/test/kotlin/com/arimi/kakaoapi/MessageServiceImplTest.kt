@@ -44,11 +44,10 @@ class MessageServiceImplTest {
             given(repo.getMessage("C1")).willReturn(res)
 
             // when
-            val response = service.getMessage("C1 열람실")
+            service.getMessage("C1 열람실")
 
             // then
-            verify(repo, atLeastOnce()).getMessage(anyString())
-            assertEquals(res.message.photo.height, response.message.photo.height)
+            verify(repo, atLeastOnce()).getMessage("C1")
         }
 
         @Test
@@ -67,11 +66,31 @@ class MessageServiceImplTest {
             given(repo.getMessage("D1")).willReturn(res)
 
             // when
-            val response = service.getMessage("D1 열람실")
+            service.getMessage("D1 열람실")
 
             // then
-            verify(repo, atLeastOnce()).getMessage(anyString())
-            assertEquals(res.message.photo.height, response.message.photo.height)
+            verify(repo, atLeastOnce()).getMessage("D1")
+        }
+
+        @Test
+        fun plug () {
+            val imgUrl = VacancyDAO.getMetaDataFor["plug"]?.imgUrl
+            val buttons = VacancyDAO.getMetaDataFor["plug"]?.buttons
+            val photo = PhotoVO(imgUrl!!, 720, 200)
+            val message = MessageVO("crawled data", photo)
+            val keyboard = KeyboardVO("buttons", buttons!!)
+
+            val res = ResponseVO(message, keyboard)
+
+
+            // given
+            given(repo.getPlugMessage()).willReturn(res)
+
+            // when
+            service.getMessage("C1 열람실 플러그 위치")
+
+            // then
+            verify(repo, atLeastOnce()).getPlugMessage()
         }
     }
 }
