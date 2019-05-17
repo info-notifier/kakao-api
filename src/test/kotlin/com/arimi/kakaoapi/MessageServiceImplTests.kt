@@ -1,12 +1,13 @@
 package com.arimi.kakaoapi
 
+import com.arimi.kakaoapi.exception.WrongRequestException
 import com.arimi.kakaoapi.repository.VacancyMessageRepository
 import com.arimi.kakaoapi.service.MessageServiceImpl
 import com.arimi.kakaoapi.vo.*
-import com.arimi.kakaoapi.dao.VacancyDAO
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
@@ -21,25 +22,21 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @SpringBootTest
 class MessageServiceImplTests {
     @Mock
+    lateinit var res: ResponseVO
+
+    @Mock
     lateinit var repo: VacancyMessageRepository
 
     @InjectMocks
     lateinit var service: MessageServiceImpl
 
+    @BeforeEach
+    fun resetRepository() = reset(repo)
+
     @Nested
     inner class VacancyTest {
         @Test
         fun c1 () {
-            val imgUrl = VacancyDAO.getMetaDataFor["C1"]?.imgUrl
-            val buttons = VacancyDAO.getMetaDataFor["C1"]?.buttons
-            val photo = PhotoVO(imgUrl!!, 720, 630)
-            val msgBtn = MessageButtonVO("상세정보", imgUrl)
-            val message = MessageVO("crawled data", photo, msgBtn)
-            val keyboard = KeyboardVO("buttons", buttons!!)
-
-            val res = ResponseVO(message, keyboard)
-
-
             // given
             given(repo.getMessage("C1")).willReturn(res)
 
@@ -52,16 +49,6 @@ class MessageServiceImplTests {
 
         @Test
         fun d1 () {
-            val imgUrl = VacancyDAO.getMetaDataFor["D1"]?.imgUrl
-            val buttons = VacancyDAO.getMetaDataFor["D1"]?.buttons
-            val photo = PhotoVO(imgUrl!!, 720, 630)
-            val msgBtn = MessageButtonVO("상세정보", imgUrl)
-            val message = MessageVO("crawled data", photo, msgBtn)
-            val keyboard = KeyboardVO("buttons", buttons!!)
-
-            val res = ResponseVO(message, keyboard)
-
-
             // given
             given(repo.getMessage("D1")).willReturn(res)
 
@@ -74,15 +61,6 @@ class MessageServiceImplTests {
 
         @Test
         fun plug () {
-            val imgUrl = VacancyDAO.getMetaDataFor["plug"]?.imgUrl
-            val buttons = VacancyDAO.getMetaDataFor["plug"]?.buttons
-            val photo = PhotoVO(imgUrl!!, 720, 200)
-            val message = MessageVO("crawled data", photo)
-            val keyboard = KeyboardVO("buttons", buttons!!)
-
-            val res = ResponseVO(message, keyboard)
-
-
             // given
             given(repo.getPlugMessage()).willReturn(res)
 
@@ -91,6 +69,18 @@ class MessageServiceImplTests {
 
             // then
             verify(repo, atLeastOnce()).getPlugMessage()
+        }
+    }
+
+    @Nested
+    inner class WrongRequestTest {
+        @Test
+        fun exception() {
+            try {
+                service.getMessage("content from wrong request")
+            } catch (e: WrongRequestException) {
+                assertEquals(e.message, "BAD REQUEST")
+            }
         }
     }
 }
