@@ -1,20 +1,21 @@
 package com.arimi.kakaoapi.contoroller
 
-import com.arimi.kakaoapi.service.MessageServiceImpl
+import com.arimi.kakaoapi.service.ReplyService
+import com.arimi.kakaoapi.service.ReplyServiceImpl
 import com.arimi.kakaoapi.vo.RequestMessageVO
-import com.arimi.kakaoapi.vo.ResponseVO
+import com.arimi.kakaoapi.vo.ReplyVO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import java.lang.RuntimeException
 
 @RestController
 class Controller @Autowired constructor (
-        private val msgService: MessageServiceImpl
+        private val replyService: ReplyService
 ) {
     @PostMapping("/message")
-    fun message(@RequestBody body: RequestMessageVO): ResponseVO? {
+    fun message(@RequestBody body: RequestMessageVO): ReplyVO? {
         return try {
-            msgService.getMessage(body.content)
+            replyService.getReplyByContent(body.content)
         } catch (e: RuntimeException) {
             System.err.println(e)
             throw e
