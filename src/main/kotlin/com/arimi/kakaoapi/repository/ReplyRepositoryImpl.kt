@@ -7,13 +7,13 @@ import org.springframework.stereotype.Repository
 import java.sql.Timestamp
 
 @Repository
-class VacancyReplyRepository : ReplyRepository {
+class ReplyRepositoryImpl : ReplyRepository {
     override lateinit var message: MessageVO
     override lateinit var keyboard: KeyboardVO
     override lateinit var msgBtn: MessageButtonVO
     override lateinit var photo: PhotoVO
 
-    override fun findReply(place: String): ResponseVO {
+    override fun findVacancyReply(place: String): ReplyVO {
         val text = Crawler.Vacancy.getTextOf(place)
         val imgUrl = VacancyDAO.getMetaDataFor[place]?.imgUrl
         val buttons = VacancyDAO.getMetaDataFor[place]?.buttons
@@ -24,14 +24,29 @@ class VacancyReplyRepository : ReplyRepository {
             message = MessageVO(text, photo, msgBtn)
         }
         buttons?.let { keyboard = KeyboardVO("buttons", it) }
-        // imgUrl, buttons가 null로 들어오는 경우 exception 처리 어떻게할까 뭐 그럴리는 없지만..
-        // F1 열람실 같은 경우 C1처럼나오네
+        // TODO: imgUrl, buttons가 null로 들어오는 경우 exception 처리
+
         return try {
-            ResponseVO(message, keyboard)
+            ReplyVO(message, keyboard)
         } catch (e: UninitializedPropertyAccessException) {
-            println("here")
             throw e
         }
     }
 
+    override fun findPlugReply(): ReplyVO {
+        val text = " * 플러그의 위치에 병아리가 있어요.\n" +
+                "왼쪽 병아리부터 플러그와 가까운 자리 번호입니다.\n" +
+                "(하단의 이미지는 실시간 이미지가 아닙니다.)\n" +
+                "349, 380, 405 or 412, 444, 468, 473"
+        val imgUrl = VacancyDAO.getMetaDataFor["plug"]?.imgUrl
+        val buttons = VacancyDAO.getMetaDataFor["plug"]?.buttons
+
+        imgUrl?.let {
+            photo = PhotoVO(it, 720, 200)
+            message = MessageVO(text, photo)
+        }
+        buttons?.let { keyboard = KeyboardVO("buttons", buttons) }
+
+        return ReplyVO(message, keyboard)
+    }
 }
