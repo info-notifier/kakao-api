@@ -2,7 +2,7 @@ package com.arimi.kakaoapi.repository
 
 import com.arimi.kakaoapi.vo.*
 
-interface MessageRepository {
+interface AutoReplyRepository {
     var message: MessageVO
     var keyboard: KeyboardVO
     var msgBtn: MessageButtonVO
