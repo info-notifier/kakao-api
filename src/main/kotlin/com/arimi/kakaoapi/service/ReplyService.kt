@@ -1,7 +1,7 @@
 package com.arimi.kakaoapi.service
 
-import com.arimi.kakaoapi.vo.ResponseVO
+import com.arimi.kakaoapi.vo.ReplyVO
 
-interface MessageService {
-    fun getMessage(content: String): ResponseVO
+interface ReplyService {
+    fun getReplyByContent(content: String): ReplyVO
 }
