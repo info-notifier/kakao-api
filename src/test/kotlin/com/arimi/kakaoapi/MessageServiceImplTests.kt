@@ -1,8 +1,8 @@
 package com.arimi.kakaoapi
 
 import com.arimi.kakaoapi.exception.WrongRequestException
-import com.arimi.kakaoapi.repository.VacancyMessageRepository
-import com.arimi.kakaoapi.service.MessageServiceImpl
+import com.arimi.kakaoapi.repository.ReplyRepositoryImpl
+import com.arimi.kakaoapi.service.ReplyServiceImpl
 import com.arimi.kakaoapi.vo.*
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,13 +22,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @SpringBootTest
 class MessageServiceImplTests {
     @Mock
-    lateinit var res: ResponseVO
+    lateinit var res: ReplyVO
 
     @Mock
-    lateinit var repo: VacancyMessageRepository
+    lateinit var repo: ReplyRepositoryImpl
 
     @InjectMocks
-    lateinit var service: MessageServiceImpl
+    lateinit var service: ReplyServiceImpl
 
     @BeforeEach
     fun resetRepository() = reset(repo)
@@ -38,37 +38,37 @@ class MessageServiceImplTests {
         @Test
         fun c1 () {
             // given
-            given(repo.getMessage("C1")).willReturn(res)
+            given(repo.findVacancyReply("C1")).willReturn(res)
 
             // when
-            service.getMessage("C1 열람실")
+            service.getReplyByContent("C1 열람실")
 
             // then
-            verify(repo, atLeastOnce()).getMessage("C1")
+            verify(repo, atLeastOnce()).findVacancyReply("C1")
         }
 
         @Test
         fun d1 () {
             // given
-            given(repo.getMessage("D1")).willReturn(res)
+            given(repo.findVacancyReply("D1")).willReturn(res)
 
             // when
-            service.getMessage("D1 열람실")
+            service.getReplyByContent("D1 열람실")
 
             // then
-            verify(repo, atLeastOnce()).getMessage("D1")
+            verify(repo, atLeastOnce()).findVacancyReply("D1")
         }
 
         @Test
         fun plug () {
             // given
-            given(repo.getPlugMessage()).willReturn(res)
+            given(repo.findPlugReply()).willReturn(res)
 
             // when
-            service.getMessage("C1 열람실 플러그 위치")
+            service.getReplyByContent("C1 열람실 플러그 위치")
 
             // then
-            verify(repo, atLeastOnce()).getPlugMessage()
+            verify(repo, atLeastOnce()).findPlugReply()
         }
     }
 
@@ -77,7 +77,7 @@ class MessageServiceImplTests {
         @Test
         fun exception() {
             try {
-                service.getMessage("content from wrong request")
+                service.getReplyByContent("content from wrong request")
             } catch (e: WrongRequestException) {
                 assertEquals(e.message, "BAD REQUEST")
             }
