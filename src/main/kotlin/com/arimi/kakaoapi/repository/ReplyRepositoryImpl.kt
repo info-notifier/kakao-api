@@ -49,4 +49,8 @@ class ReplyRepositoryImpl : ReplyRepository {
 
         return ReplyVO(message, keyboard)
     }
+
+    override fun findFoodCourtReply(place: String): ReplyVO {
+        return ReplyVO(message, keyboard)
+    }
 }
