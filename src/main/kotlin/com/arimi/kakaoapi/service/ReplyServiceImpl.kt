@@ -12,6 +12,7 @@ class ReplyServiceImpl @Autowired constructor (
 ) : ReplyService {
     override fun getReplyByContent(content: String): ReplyVO {
         return when (content) {
+            // TODO: 처음으로 버튼 분기 필요
             "C1 열람실" -> replyRepository.findVacancyReply("C1")
             "D1 열람실" -> replyRepository.findVacancyReply("D1")
             "C1 열람실 플러그 위치" -> replyRepository.findPlugReply()
