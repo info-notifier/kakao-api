@@ -34,9 +34,39 @@ class MessageServiceImplTests {
     fun resetRepository() = reset(repo)
 
     @Nested
+    inner class FoodCourtTest {
+        @Test
+        fun student() {
+            given(repo.findFoodCourtReply("student")).willReturn(res)
+
+            service.getReplyByContent("학생식당")
+
+            verify(repo, atLeastOnce()).findFoodCourtReply("student")
+        }
+
+        @Test
+        fun dormitory() {
+            given(repo.findFoodCourtReply("dormitory")).willReturn(res)
+
+            service.getReplyByContent("기숙사식당")
+
+            verify(repo, atLeastOnce()).findFoodCourtReply("dormitory")
+        }
+
+        @Test
+        fun faculty() {
+            given(repo.findFoodCourtReply("faculty")).willReturn(res)
+
+            service.getReplyByContent("교직원식당")
+
+            verify(repo, atLeastOnce()).findFoodCourtReply("faculty")
+        }
+    }
+
+    @Nested
     inner class VacancyTest {
         @Test
-        fun c1 () {
+        fun c1() {
             // given
             given(repo.findVacancyReply("C1")).willReturn(res)
 
@@ -48,7 +78,7 @@ class MessageServiceImplTests {
         }
 
         @Test
-        fun d1 () {
+        fun d1() {
             // given
             given(repo.findVacancyReply("D1")).willReturn(res)
 
@@ -60,7 +90,7 @@ class MessageServiceImplTests {
         }
 
         @Test
-        fun plug () {
+        fun plug() {
             // given
             given(repo.findPlugReply()).willReturn(res)
 
