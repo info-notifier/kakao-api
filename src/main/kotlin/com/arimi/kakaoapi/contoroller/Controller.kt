@@ -1,7 +1,6 @@
 package com.arimi.kakaoapi.contoroller
 
 import com.arimi.kakaoapi.service.ReplyService
-import com.arimi.kakaoapi.service.ReplyServiceImpl
 import com.arimi.kakaoapi.vo.RequestMessageVO
 import com.arimi.kakaoapi.vo.ReplyVO
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,7 +20,4 @@ class Controller @Autowired constructor (
             throw e
         }
     }
-
-    @GetMapping("/test")
-    fun test(): String = "hi test"
 }
