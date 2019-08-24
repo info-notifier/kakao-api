@@ -15,6 +15,9 @@ class ReplyServiceImpl @Autowired constructor (
             "C1 열람실" -> replyRepository.findVacancyReply("C1")
             "D1 열람실" -> replyRepository.findVacancyReply("D1")
             "C1 열람실 플러그 위치" -> replyRepository.findPlugReply()
+            "학생식당" -> replyRepository.findFoodCourtReply("student")
+            "기숙사식당" -> replyRepository.findFoodCourtReply("dormitory")
+            "교직원식당" -> replyRepository.findFoodCourtReply("faculty")
             else -> throw WrongRequestException("BAD REQUEST")
         }
     }
