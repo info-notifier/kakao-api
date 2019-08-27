@@ -1,4 +1,4 @@
-package com.arimi.kakaoapi
+package com.arimi.kakaoapi.service
 
 import com.arimi.kakaoapi.exception.WrongRequestException
 import com.arimi.kakaoapi.repository.ReplyRepositoryImpl
