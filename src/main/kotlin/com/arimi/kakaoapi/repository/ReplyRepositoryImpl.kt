@@ -13,13 +13,15 @@ class ReplyRepositoryImpl : ReplyRepository {
     override lateinit var keyboard: KeyboardVO
     override lateinit var msgBtn: MessageButtonVO
     override lateinit var photo: PhotoVO
+    override lateinit var vacancyMetadata: VacancyDAO.MetaData
+    override lateinit var foodCourtMetadata: FoodCourtDAO.MetaData
 
     override fun findVacancyReply(place: String): ReplyVO {
         val text = Crawler.Vacancy.getTextOf(place)
-        val metadata = VacancyDAO.getMetaDataFor[place]
         val timestamp = Timestamp(System.currentTimeMillis())
+        vacancyMetadata = VacancyDAO.getMetaDataFor[place]!!
 
-        metadata?.let {
+        vacancyMetadata.let {
             photo = PhotoVO("${it.imgUrl!!}?t=${timestamp.time}", 720, 630)
             msgBtn = MessageButtonVO("상세정보", it.imgUrl)
             message = MessageVO(text, photo, msgBtn)
@@ -34,13 +36,13 @@ class ReplyRepositoryImpl : ReplyRepository {
     }
 
     override fun findPlugReply(): ReplyVO {
-        val metadata = VacancyDAO.getMetaDataFor["plug"]
         val text = " * 플러그의 위치에 병아리가 있어요.\n" +
                 "왼쪽 병아리부터 플러그와 가까운 자리 번호입니다.\n" +
                 "(하단의 이미지는 실시간 이미지가 아닙니다.)\n" +
                 "349, 380, 405 or 412, 444, 468, 473"
+        vacancyMetadata = VacancyDAO.getMetaDataFor["plug"]!!
 
-        metadata?.let {
+        vacancyMetadata.let {
             photo = PhotoVO(it.imgUrl!!, 720, 200)
             message = MessageVO(text, photo)
             keyboard = KeyboardVO(it.type, it.buttons)
@@ -51,9 +53,9 @@ class ReplyRepositoryImpl : ReplyRepository {
 
     override fun findFoodCourtReply(place: String): ReplyVO {
         val getText = Crawler.FoodCourt.getFnOf[place]
-        val metadata = FoodCourtDAO.getMetaDataFor[place]
+        foodCourtMetadata = FoodCourtDAO.getMetaDataFor[place]!!
 
-        metadata?.let {
+        foodCourtMetadata.let {
             message = MessageVO(getText!!.invoke())
             keyboard = KeyboardVO(it.type, it.buttons)
         }
