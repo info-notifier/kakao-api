@@ -1,9 +1,10 @@
 package com.arimi.kakaoapi.dao
 
 class FoodCourtDAO {
-    companion object {
-        data class MetaData(val type: String, val imgUrl: String?, val buttons: List<String>)
+    // TODO: metadata -> vo로 빼야하나?
+    data class MetaData(val type: String, val imgUrl: String?, val buttons: List<String>)
 
+    companion object {
         val getMetaDataFor: HashMap<String, MetaData> = hashMapOf (
                 "student" to MetaData (
                         "buttons",
