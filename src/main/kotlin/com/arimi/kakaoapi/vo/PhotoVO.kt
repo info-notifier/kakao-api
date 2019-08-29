@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+// TODO: 상속 때문에 open class로 바꿔야하는지 알아보기 (mokito test시 문제 생길 수 있음)
 data class PhotoVO (
         val url: String,
         val width: Int,
