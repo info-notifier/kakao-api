@@ -1,14 +1,18 @@
 package com.arimi.kakaoapi.repository
 
 import com.arimi.kakaoapi.dao.FoodCourtDAO
-import com.arimi.kakaoapi.utils.Crawler
 import com.arimi.kakaoapi.vo.*
 import com.arimi.kakaoapi.dao.VacancyDAO
+import com.arimi.kakaoapi.utils.Crawler
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 import java.sql.Timestamp
 
 @Repository
-class ReplyRepositoryImpl : ReplyRepository {
+class ReplyRepositoryImpl @Autowired constructor(
+        private val crawler: Crawler
+) : ReplyRepository {
+
     override lateinit var message: MessageVO
     override lateinit var keyboard: KeyboardVO
     override lateinit var msgBtn: MessageButtonVO
@@ -17,7 +21,7 @@ class ReplyRepositoryImpl : ReplyRepository {
     override lateinit var foodCourtMetadata: FoodCourtDAO.MetaData
 
     override fun findVacancyReply(place: String): ReplyVO {
-        val text = Crawler.Vacancy.getTextOf(place)
+        val text = crawler.vacancy.getTextOf(place)
         val timestamp = Timestamp(System.currentTimeMillis())
         vacancyMetadata = VacancyDAO.getMetaDataFor[place]!!
 
@@ -52,7 +56,7 @@ class ReplyRepositoryImpl : ReplyRepository {
     }
 
     override fun findFoodCourtReply(place: String): ReplyVO {
-        val getText = Crawler.FoodCourt.getFnOf[place]
+        val getText = crawler.foodCourt.getFnOf[place]
         foodCourtMetadata = FoodCourtDAO.getMetaDataFor[place]!!
 
         foodCourtMetadata.let {
