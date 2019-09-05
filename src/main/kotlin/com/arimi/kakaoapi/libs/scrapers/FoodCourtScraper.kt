@@ -1,4 +1,4 @@
-package com.arimi.kakaoapi.libs
+package com.arimi.kakaoapi.libs.scrapers
 
 import org.jsoup.Jsoup
 import org.springframework.stereotype.Component
