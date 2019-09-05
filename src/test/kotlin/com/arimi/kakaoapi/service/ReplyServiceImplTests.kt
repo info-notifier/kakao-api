@@ -2,7 +2,6 @@ package com.arimi.kakaoapi.service
 
 import com.arimi.kakaoapi.exception.WrongRequestException
 import com.arimi.kakaoapi.repository.ReplyRepositoryImpl
-import com.arimi.kakaoapi.service.ReplyServiceImpl
 import com.arimi.kakaoapi.vo.*
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.*
@@ -37,7 +35,7 @@ class ReplyServiceImplTests {
     inner class FoodCourtTest {
         @Test
         fun student() {
-            given(repo.findFoodCourtReply("student")).willReturn(res)
+//            given(repo.findFoodCourtReply("student")).willReturn(res)
 
             service.getReplyByContent("학생식당")
 
@@ -46,7 +44,7 @@ class ReplyServiceImplTests {
 
         @Test
         fun dormitory() {
-            given(repo.findFoodCourtReply("dormitory")).willReturn(res)
+//            given(repo.findFoodCourtReply("dormitory")).willReturn(res)
 
             service.getReplyByContent("기숙사식당")
 
@@ -55,7 +53,7 @@ class ReplyServiceImplTests {
 
         @Test
         fun faculty() {
-            given(repo.findFoodCourtReply("faculty")).willReturn(res)
+//            given(repo.findFoodCourtReply("faculty")).willReturn(res)
 
             service.getReplyByContent("교직원식당")
 
@@ -68,7 +66,7 @@ class ReplyServiceImplTests {
         @Test
         fun c1() {
             // given
-            given(repo.findVacancyReply("C1")).willReturn(res)
+//            given(repo.findVacancyReply("C1")).willReturn(res)
 
             // when
             service.getReplyByContent("C1 열람실")
@@ -80,7 +78,7 @@ class ReplyServiceImplTests {
         @Test
         fun d1() {
             // given
-            given(repo.findVacancyReply("D1")).willReturn(res)
+//            given(repo.findVacancyReply("D1")).willReturn(res)
 
             // when
             service.getReplyByContent("D1 열람실")
@@ -92,7 +90,7 @@ class ReplyServiceImplTests {
         @Test
         fun plug() {
             // given
-            given(repo.findPlugReply()).willReturn(res)
+//            given(repo.findPlugReply()).willReturn(res)
 
             // when
             service.getReplyByContent("C1 열람실 플러그 위치")
