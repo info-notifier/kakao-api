@@ -5,11 +5,13 @@ import org.springframework.stereotype.Component
 
 @Component
 class FoodCourtScraper {
-    val getFnOf: HashMap<String, () -> String> = hashMapOf (
-            "student" to this::getStudentText,
-            "dormitory" to this::getDormitoryText,
-            "faculty" to this::getFacultyText
+    private val getFnOf: HashMap<String, () -> String> = hashMapOf (
+            "student" to ::getStudentText,
+            "dormitory" to ::getDormitoryText,
+            "faculty" to ::getFacultyText
     )
+
+    fun getTextOf(place: String) = getFnOf[place]!!.invoke()
 
     private fun getStudentText(): String {
         val url = "http://www.ajou.ac.kr/main/life/food.jsp"
