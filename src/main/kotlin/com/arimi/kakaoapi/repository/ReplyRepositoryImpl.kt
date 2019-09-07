@@ -56,11 +56,11 @@ class ReplyRepositoryImpl @Autowired constructor(
     }
 
     override fun findFoodCourtReply(place: String): ReplyVO {
-        val getText = crawler.foodCourt.getFnOf[place]
+        val text = crawler.foodCourt.getTextOf(place)
         foodCourtMetadata = FoodCourtDAO.getMetaDataFor[place]!!
 
         foodCourtMetadata.let {
-            message = MessageVO(getText!!.invoke())
+            message = MessageVO(text)
             keyboard = KeyboardVO(it.type, it.buttons)
         }
         return ReplyVO(message, keyboard)
