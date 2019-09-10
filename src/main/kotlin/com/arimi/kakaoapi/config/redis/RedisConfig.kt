@@ -1,15 +1,60 @@
 package com.arimi.kakaoapi.config.redis
 
+import com.arimi.kakaoapi.vo.MetaDataForResponseVO
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Profile
 import org.springframework.context.annotation.PropertySource
+import org.springframework.data.redis.connection.RedisConnectionFactory
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
+import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.core.StringRedisTemplate
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
+import org.springframework.data.redis.serializer.StringRedisSerializer
+import com.fasterxml.jackson.databind.ObjectMapper
 
 @Configuration
-@PropertySource("classpath:")
-@Profile("dev")
-class RedisDevConfig {
+@PropertySource("classpath:application.properties")
+class RedisConfig {
 
-//    @Bean
+    @Value("\${spring.redis.host}")
+    lateinit var redisHost: String
+
+    @Value("\${spring.redis.port}")
+    val redisPort: Int = 0
+
+    @Bean
+    fun redisConnectionFactory(): RedisConnectionFactory {
+        val lettuceConnectionFactory = LettuceConnectionFactory()
+        // setter 이용방식은 deprecated 됨
+        // 그런데 application.properties의 property(host, port 등)들을 자동으로 가져오지 못함
+        // TODO: 위 문제점 원인 찾아 해결하기
+        lettuceConnectionFactory.hostName = redisHost
+        lettuceConnectionFactory.port = redisPort
+        return lettuceConnectionFactory
+    }
+
+    @Bean
+    fun redisTemplate(): RedisTemplate<String, Any> {
+
+        val objectMapper = ObjectMapper()
+        objectMapper.enableDefaultTypingAsProperty(ObjectMapper.DefaultTyping.JAVA_LANG_OBJECT, "@class")
+        objectMapper.registerSubtypes(MetaDataForResponseVO::class.java)
+
+        val redisTemplate = RedisTemplate<String, Any>()
+        redisTemplate.setConnectionFactory(redisConnectionFactory())
+        redisTemplate.keySerializer = StringRedisSerializer()
+        redisTemplate.valueSerializer = GenericJackson2JsonRedisSerializer(objectMapper)
+        return redisTemplate
+    }
+
+    @Bean
+    fun stringRedisTemplate(): StringRedisTemplate {
+        val stringRedisTemplate = StringRedisTemplate()
+        stringRedisTemplate.setConnectionFactory(redisConnectionFactory())
+        stringRedisTemplate.keySerializer = StringRedisSerializer()
+        stringRedisTemplate.valueSerializer = StringRedisSerializer()
+        return stringRedisTemplate
+    }
 
 }
