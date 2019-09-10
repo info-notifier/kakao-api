@@ -28,3 +28,6 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+
+### Code Test ###
+src/test/kotlin/com/arimi/kakaoapi/CodeTests.kt
