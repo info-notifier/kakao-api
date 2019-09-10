@@ -35,6 +35,7 @@ class ReplyServiceImplTests {
     inner class FoodCourtTest {
         @Test
         fun student() {
+            // TODO: 아래 given 이용하여 assertEquals 테스트 코드 작성하기
 //            given(repo.findFoodCourtReply("student")).willReturn(res)
 
             service.getReplyByContent("학생식당")
