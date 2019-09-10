@@ -3,6 +3,8 @@ package com.arimi.kakaoapi
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
+// @SpringBootApplication 어노테이션은
+// @Configuration, @EnableAutoConfiguration 그리고 @ComponentScan을 디폴트 속성으로 함께 사용하는 것과 같다.
 @SpringBootApplication
 class KakaoapiApplication
 
