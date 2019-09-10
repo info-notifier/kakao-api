@@ -1,6 +1,5 @@
-package com.arimi.kakaoapi.config.redis
+package com.arimi.kakaoapi.config
 
-import com.arimi.kakaoapi.vo.MetaDataForResponseVO
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -11,7 +10,6 @@ import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.StringRedisSerializer
-import com.fasterxml.jackson.databind.ObjectMapper
 
 @Configuration
 @PropertySource("classpath:application.properties")
@@ -36,15 +34,10 @@ class RedisConfig {
 
     @Bean
     fun redisTemplate(): RedisTemplate<String, Any> {
-
-        val objectMapper = ObjectMapper()
-        objectMapper.enableDefaultTypingAsProperty(ObjectMapper.DefaultTyping.JAVA_LANG_OBJECT, "@class")
-        objectMapper.registerSubtypes(MetaDataForResponseVO::class.java)
-
         val redisTemplate = RedisTemplate<String, Any>()
         redisTemplate.setConnectionFactory(redisConnectionFactory())
         redisTemplate.keySerializer = StringRedisSerializer()
-        redisTemplate.valueSerializer = GenericJackson2JsonRedisSerializer(objectMapper)
+        redisTemplate.valueSerializer = GenericJackson2JsonRedisSerializer()
         return redisTemplate
     }
 
