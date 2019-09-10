@@ -1,7 +1,5 @@
 package com.arimi.kakaoapi.repository
 
-import com.arimi.kakaoapi.dao.FoodCourtDAO
-import com.arimi.kakaoapi.dao.VacancyDAO
 import com.arimi.kakaoapi.vo.*
 
 interface ReplyRepository {
@@ -9,8 +7,8 @@ interface ReplyRepository {
     var keyboard: KeyboardVO
     var msgBtn: MessageButtonVO
     var photo: PhotoVO
-    var vacancyMetadata: VacancyDAO.MetaData
-    var foodCourtMetadata: FoodCourtDAO.MetaData
+    var vacancyMetadata: MetaDataForResponseVO
+    var foodCourtMetadata: MetaDataForResponseVO
     
     fun findVacancyReply(place: String): ReplyVO
     fun findPlugReply(): ReplyVO
