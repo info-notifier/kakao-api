@@ -1,7 +1,32 @@
 {
-  "name": "resources",
-  "version": "1.0.0",
-  "dependencies": {
-    
+  "C1": {
+    "type": "button",
+    "imgUrl": "http://u-campus.ajou.ac.kr/ltms/temp/241.png",
+    "buttons": ["D1 열람실", "C1 열람실", "C1 열람실 플러그 위치", "처음으로"]
+  },
+  "D1": {
+    "type": "button",
+    "imgUrl": "http://u-campus.ajou.ac.kr/ltms/temp/261.png",
+    "buttons": ["C1 열람실", "D1 열람실", "처음으로"]
+  },
+  "plug": {
+    "type": "button",
+    "imgUrl": "https://user-images.githubusercontent.com/31656287/57567720-87545980-7418-11e9-96be-d6f3aaca74b6.png",
+    "buttons": ["C1 열람실", "D1 열람실", "처음으로"]
+  },
+  "student": {
+    "type": "button",
+    "imgUrl": null,
+    "buttons": ["기숙사식당", "교직원식당", "처음으로"]
+  },
+  "dormitory": {
+    "type": "button",
+    "imgUrl": null,
+    "buttons": ["학생식당", "교직원식당", "처음으로"]
+  },
+  "faculty": {
+    "type": "button",
+    "imgUrl": null,
+    "buttons": ["학생식당", "기숙사식당", "처음으로"]
   }
 }
