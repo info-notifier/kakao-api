@@ -1,19 +1,18 @@
 package com.arimi.kakaoapi.repository
 
-import com.arimi.kakaoapi.dao.FoodCourtDAO
-import com.arimi.kakaoapi.dao.TestDAO
+import com.arimi.kakaoapi.dao.MetaDataDAO
+import com.arimi.kakaoapi.dao.ScrappedTextDAO
 import com.arimi.kakaoapi.vo.*
-import com.arimi.kakaoapi.dao.VacancyDAO
 import com.arimi.kakaoapi.utils.Crawler
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository
 import java.sql.Timestamp
 
 @Repository
 class ReplyRepositoryImpl @Autowired constructor(
-        private val crawler: Crawler,
-        private val testDAO: TestDAO
+        // scrappedTextDAO --> cache
+        val scrappedTextDAO: ScrappedTextDAO,
+        val metaDataDAO: MetaDataDAO
 ) : ReplyRepository {
 
     override lateinit var message: MessageVO
@@ -24,11 +23,9 @@ class ReplyRepositoryImpl @Autowired constructor(
     override lateinit var foodCourtMetadata: MetaDataForResponseVO
 
     override fun findVacancyReply(place: String): ReplyVO {
-        val text = crawler.vacancy.getTextOf(place)
+        val text = scrappedTextDAO.getText(place)
         val timestamp = Timestamp(System.currentTimeMillis())
-//        vacancyMetadata = VacancyDAO.getMetaDataFor[place]!!
-        vacancyMetadata = testDAO.getMetaData(place)
-
+        vacancyMetadata = metaDataDAO.getMetaData(place)
 
         vacancyMetadata.let {
             photo = PhotoVO("${it.imgUrl!!}?t=${timestamp.time}", 720, 630)
@@ -49,7 +46,7 @@ class ReplyRepositoryImpl @Autowired constructor(
                 "왼쪽 병아리부터 플러그와 가까운 자리 번호입니다.\n" +
                 "(하단의 이미지는 실시간 이미지가 아닙니다.)\n" +
                 "349, 380, 405 or 412, 444, 468, 473"
-        vacancyMetadata = testDAO.getMetaData("plug")
+        vacancyMetadata = metaDataDAO.getMetaData("plug")
 
         vacancyMetadata.let {
             photo = PhotoVO(it.imgUrl!!, 720, 200)
@@ -61,8 +58,8 @@ class ReplyRepositoryImpl @Autowired constructor(
     }
 
     override fun findFoodCourtReply(place: String): ReplyVO {
-        val text = crawler.foodCourt.getTextOf(place)
-        foodCourtMetadata = testDAO.getMetaData(place)
+        val text = scrappedTextDAO.getText(place)
+        foodCourtMetadata = metaDataDAO.getMetaData(place)
 
         foodCourtMetadata.let {
             message = MessageVO(text)
