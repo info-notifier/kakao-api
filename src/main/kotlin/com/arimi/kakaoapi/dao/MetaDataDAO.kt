@@ -12,8 +12,10 @@ class MetaDataDAO @Autowired constructor(
         private val mapper: ObjectMapper
 ) {
     fun getMetaData(key: String): MetaDataForResponseVO {
-        val metaDataJsonFile = ClassPathResource("metadata.json").file
-        val map = mapper.readValue<Map<String, MetaDataForResponseVO>>(metaDataJsonFile)
+//        Executable jar로 배포를 하기 위해서 file 대신 stream 처리
+//        val metaDataJsonFile = ClassPathResource("metadata.json").file
+        val metaDataJsonInputStream = ClassPathResource("metadata.json").inputStream
+        val map = mapper.readValue<Map<String, MetaDataForResponseVO>>(metaDataJsonInputStream)
 
         return map.getValue(key)
     }
