@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class Crawler @Autowired constructor (
+        // TODO: redis template 을 직접 불러오는게 아니라 관련 DAO가 해당 write 작업 처리하도록 변경하기
         redisTemplate: StringRedisTemplate,
         val vacancy: VacancyScraper,
         val foodCourt: FoodCourtScraper
