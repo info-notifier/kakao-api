@@ -1,4 +1,9 @@
 {
+  "keyboardInit": {
+    "type": "button",
+    "imgUrl": null,
+    "buttons": ["도서관 여석 확인", "오늘의 학식"]
+  },
   "C1": {
     "type": "button",
     "imgUrl": "http://u-campus.ajou.ac.kr/ltms/temp/241.png",
