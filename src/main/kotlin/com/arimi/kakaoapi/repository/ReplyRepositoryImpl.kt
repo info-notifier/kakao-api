@@ -22,6 +22,17 @@ class ReplyRepositoryImpl @Autowired constructor(
     override lateinit var vacancyMetadata: MetaDataForResponseVO
     override lateinit var foodCourtMetadata: MetaDataForResponseVO
 
+    override fun findKeyboardInitReply(): KeyboardVO {
+        metaDataDAO.getMetaData("keyboardInit").let {
+            return try {
+                KeyboardVO(it.type, it.buttons)
+            } catch (e: UninitializedPropertyAccessException) {
+                throw e
+            }
+        }
+
+    }
+
     override fun findVacancyReply(place: String): ReplyVO {
         val text = scrappedTextDAO.getText(place)
         val timestamp = Timestamp(System.currentTimeMillis())
