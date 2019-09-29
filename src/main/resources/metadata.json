@@ -1,37 +1,50 @@
 {
   "keyboardInit": {
     "type": "button",
+    "fixedText": null,
     "imgUrl": null,
     "buttons": ["도서관 여석 확인", "오늘의 학식"]
   },
   "C1": {
     "type": "button",
+    "fixedText": null,
     "imgUrl": "http://u-campus.ajou.ac.kr/ltms/temp/241.png",
     "buttons": ["D1 열람실", "C1 열람실", "C1 열람실 플러그 위치", "처음으로"]
   },
   "D1": {
     "type": "button",
+    "fixedText": null,
     "imgUrl": "http://u-campus.ajou.ac.kr/ltms/temp/261.png",
     "buttons": ["C1 열람실", "D1 열람실", "처음으로"]
   },
   "plug": {
     "type": "button",
+    "fixedText": " * 플러그의 위치에 병아리가 있어요.\n왼쪽 병아리부터 플러그와 가까운 자리 번호입니다.\n(하단의 이미지는 실시간 이미지가 아닙니다.)\n349, 380, 405 or 412, 444, 468, 473",
     "imgUrl": "https://user-images.githubusercontent.com/31656287/57567720-87545980-7418-11e9-96be-d6f3aaca74b6.png",
     "buttons": ["C1 열람실", "D1 열람실", "처음으로"]
   },
   "student": {
     "type": "button",
+    "fixedText": null,
     "imgUrl": null,
     "buttons": ["기숙사식당", "교직원식당", "처음으로"]
   },
   "dormitory": {
     "type": "button",
+    "fixedText": null,
     "imgUrl": null,
     "buttons": ["학생식당", "교직원식당", "처음으로"]
   },
   "faculty": {
     "type": "button",
+    "fixedText": null,
     "imgUrl": null,
     "buttons": ["학생식당", "기숙사식당", "처음으로"]
+  },
+  "initialMenu": {
+    "type": "button",
+    "fixedText": "원하는 메뉴를 선택해주세요",
+    "imgUrl": null,
+    "buttons": ["도서관 여석 확인", "오늘의 학식"]
   }
 }
