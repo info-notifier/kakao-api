@@ -1,5 +1,6 @@
 package com.arimi.kakaoapi.utils
 
+import com.arimi.kakaoapi.dao.RedisDAO
 import com.arimi.kakaoapi.libs.scrapers.FoodCourtScraper
 import com.arimi.kakaoapi.libs.scrapers.VacancyScraper
 import org.springframework.beans.factory.annotation.Autowired
@@ -9,12 +10,10 @@ import org.springframework.stereotype.Component
 
 @Component
 class Crawler @Autowired constructor (
-        // TODO: redis template 을 직접 불러오는게 아니라 관련 DAO가 해당 write 작업 처리하도록 변경하기
-        redisTemplate: StringRedisTemplate,
         val vacancy: VacancyScraper,
-        val foodCourt: FoodCourtScraper
+        val foodCourt: FoodCourtScraper,
+        val redisDAO: RedisDAO
 ) {
-    private val ops = redisTemplate.opsForValue()
     private val vacancyPlaces = listOf("C1", "D1")
     private val foodCourtPlaces = listOf("student", "dormitory", "faculty")
 
@@ -22,7 +21,7 @@ class Crawler @Autowired constructor (
     fun setVacancy() {
         vacancyPlaces.forEach{place ->
             val text = vacancy.getTextOf(place)
-            ops.set(place, text)
+            redisDAO.setScrappedText(place, text)
         }
     }
 
@@ -30,7 +29,7 @@ class Crawler @Autowired constructor (
     fun setFoodCourt() {
         foodCourtPlaces.forEach{place ->
             val text = foodCourt.getTextOf(place)
-            ops.set(place, text)
+            redisDAO.setScrappedText(place, text)
         }
     }
 }
