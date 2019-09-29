@@ -4,6 +4,7 @@ package com.arimi.kakaoapi.vo
 // default constructor가 생성되고 jackson을 이용한 JSON(to Object) deserialization이 가능하다.
 data class MetaDataForResponseVO(
         val type: String = "",
+        val fixedText: String? = null,
         val imgUrl: String? = null,
         val buttons: List<String> = listOf()
 ) {
