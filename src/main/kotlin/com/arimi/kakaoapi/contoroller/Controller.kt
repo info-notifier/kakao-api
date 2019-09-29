@@ -1,6 +1,6 @@
 package com.arimi.kakaoapi.contoroller
 
-import com.arimi.kakaoapi.service.ReplyService
+import com.arimi.kakaoapi.service.ChannelService
 import com.arimi.kakaoapi.vo.KeyboardVO
 import com.arimi.kakaoapi.vo.RequestMessageVO
 import com.arimi.kakaoapi.vo.ReplyVO
@@ -10,12 +10,12 @@ import java.lang.RuntimeException
 
 @RestController
 class Controller @Autowired constructor (
-        private val replyService: ReplyService
+        private val channelService: ChannelService
 ) {
     @GetMapping("/keyboard")
     fun keyboard(): KeyboardVO {
         return try {
-            replyService.getKeyboardInitReply()
+            channelService.getKeyboardInitReply()
         } catch (e: RuntimeException) {
             System.err.println(e)
             throw e
@@ -25,7 +25,7 @@ class Controller @Autowired constructor (
     @PostMapping("/message")
     fun message(@RequestBody body: RequestMessageVO): ReplyVO? {
         return try {
-            replyService.getReplyByContent(body.content)
+            channelService.getReplyByContent(body.content)
         } catch (e: RuntimeException) {
             System.err.println(e)
             throw e

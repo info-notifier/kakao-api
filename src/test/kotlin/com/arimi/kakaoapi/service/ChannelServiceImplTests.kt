@@ -26,7 +26,7 @@ class ReplyServiceImplTests {
     lateinit var repo: ReplyRepositoryImpl
 
     @InjectMocks
-    lateinit var service: ReplyServiceImpl
+    lateinit var service: KakaoChannelServiceImpl
 
     @BeforeEach
     fun resetRepository() = reset(repo)
