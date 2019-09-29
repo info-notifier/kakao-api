@@ -8,12 +8,12 @@ import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Repository
 
 @Repository
-class MenuMapperDAO @Autowired constructor(
+class MenuNameMapperDAO @Autowired constructor(
         private val mapper: ObjectMapper
 ) {
-    fun getMetaData(key: String): MetaDataForResponseVO {
-        val metaDataJsonInputStream = ClassPathResource("metadata.json").inputStream
-        val map = mapper.readValue<Map<String, MetaDataForResponseVO>>(metaDataJsonInputStream)
+    fun getMenuName(key: String): String {
+        val menuNameJsonInputStream = ClassPathResource("menuNameMapper.json").inputStream
+        val map = mapper.readValue<Map<String, String>>(menuNameJsonInputStream)
 
         return map.getValue(key)
     }
