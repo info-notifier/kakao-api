@@ -11,8 +11,12 @@ interface ReplyRepository {
     var foodCourtMetadata: MetaDataForResponseVO
 
     fun findKeyboardInitReply(): KeyboardVO
+
+    fun findVacancyMenuReply(): ReplyVO
+    fun findFoodCourtMenuReply(): ReplyVO
+    fun findInitialMenuReply(): ReplyVO
+
     fun findVacancyReply(place: String): ReplyVO
     fun findPlugReply(): ReplyVO
     fun findFoodCourtReply(place: String): ReplyVO
-    fun findInitialMenuReply(): ReplyVO
 }
