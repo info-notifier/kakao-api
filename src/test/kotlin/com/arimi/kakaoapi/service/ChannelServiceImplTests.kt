@@ -18,7 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(SpringExtension::class)
 @SpringBootTest
-class ReplyServiceImplTests {
+class ChannelServiceImplTests {
     @Mock
     lateinit var res: ReplyVO
 
@@ -26,7 +26,7 @@ class ReplyServiceImplTests {
     lateinit var repo: ReplyRepositoryImpl
 
     @InjectMocks
-    lateinit var service: KakaoChannelServiceImpl
+    lateinit var service: ChannelServiceImpl
 
     @BeforeEach
     fun resetRepository() = reset(repo)
