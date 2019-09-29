@@ -1,7 +1,7 @@
 //package com.arimi.kakaoapi.repository
 //
 //import com.arimi.kakaoapi.dao.MetaDataDAO
-//import com.arimi.kakaoapi.dao.ScrappedTextDAO
+//import com.arimi.kakaoapi.dao.RedisDAO
 //import com.arimi.kakaoapi.libs.scrapers.FoodCourtScraper
 //import com.arimi.kakaoapi.libs.scrapers.VacancyScraper
 //import com.arimi.kakaoapi.utils.Crawler
@@ -33,7 +33,7 @@
 //    lateinit var replyMock: ReplyVO
 //
 //    @Spy
-//    lateinit var scrappedTextDAOMock: ScrappedTextDAO
+//    lateinit var scrappedTextDAOMock: RedisDAO
 //
 ////    @Spy
 ////    lateinit var metaDataDAOMock: MetaDataDAO
