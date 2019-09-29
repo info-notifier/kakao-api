@@ -33,6 +33,19 @@ class ReplyRepositoryImpl @Autowired constructor(
 
     }
 
+    override fun findInitialMenuReply(): ReplyVO {
+        metaDataDAO.getMetaData("initialMenu").let {
+            message = MessageVO(it.fixedText!!)
+            keyboard = KeyboardVO(it.type, it.buttons)
+        }
+
+        return try {
+            ReplyVO(message, keyboard)
+        } catch (e: UninitializedPropertyAccessException) {
+            throw e
+        }
+    }
+
     override fun findVacancyReply(place: String): ReplyVO {
         val text = scrappedTextDAO.getText(place)
         val timestamp = Timestamp(System.currentTimeMillis())
@@ -53,15 +66,11 @@ class ReplyRepositoryImpl @Autowired constructor(
     }
 
     override fun findPlugReply(): ReplyVO {
-        val text = " * 플러그의 위치에 병아리가 있어요.\n" +
-                "왼쪽 병아리부터 플러그와 가까운 자리 번호입니다.\n" +
-                "(하단의 이미지는 실시간 이미지가 아닙니다.)\n" +
-                "349, 380, 405 or 412, 444, 468, 473"
         vacancyMetadata = metaDataDAO.getMetaData("plug")
 
         vacancyMetadata.let {
             photo = PhotoVO(it.imgUrl!!, 720, 200)
-            message = MessageVO(text, photo)
+            message = MessageVO(it.fixedText!!, photo)
             keyboard = KeyboardVO(it.type, it.buttons)
         }
 

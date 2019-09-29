@@ -14,4 +14,5 @@ interface ReplyRepository {
     fun findVacancyReply(place: String): ReplyVO
     fun findPlugReply(): ReplyVO
     fun findFoodCourtReply(place: String): ReplyVO
+    fun findInitialMenuReply(): ReplyVO
 }
