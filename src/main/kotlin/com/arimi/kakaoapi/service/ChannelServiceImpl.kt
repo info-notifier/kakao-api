@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class KakaoChannelServiceImpl @Autowired constructor (
+class ChannelServiceImpl @Autowired constructor (
         private val replyRepository: ReplyRepository
-) : KakaoChannelService {
-    // 서비스는 여러개의 레포를 가져와서 사용하는 상위 레이어인데 네이밍이 reply로 replyrepository와 같은게 좀 이상함
+) : ChannelService {
 
     override fun getKeyboardInitReply(): KeyboardVO = replyRepository.findKeyboardInitReply()
 
@@ -24,6 +23,7 @@ class KakaoChannelServiceImpl @Autowired constructor (
             "학생식당" -> replyRepository.findFoodCourtReply("student")
             "기숙사식당" -> replyRepository.findFoodCourtReply("dormitory")
             "교직원식당" -> replyRepository.findFoodCourtReply("faculty")
+            "처음으로" -> replyRepository.findInitialMenuReply()
             else -> throw WrongRequestException("BAD REQUEST")
         }
     }
