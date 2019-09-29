@@ -17,7 +17,7 @@ class Crawler @Autowired constructor (
     private val vacancyPlaces = listOf("C1", "D1")
     private val foodCourtPlaces = listOf("student", "dormitory", "faculty")
 
-    @Scheduled(initialDelay = 1000, fixedDelay = 1000 * 60)
+    @Scheduled(initialDelay = 1000, fixedDelay = 1000 * 10)
     fun setVacancy() {
         vacancyPlaces.forEach{place ->
             val text = vacancy.getTextOf(place)
